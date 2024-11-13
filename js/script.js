@@ -1,78 +1,65 @@
 $(function () {
 
-    // 팝업
-
-    $('.popup_on').click(function () {
-        $('.popup').show();
-    })
-
-    $('.popup_off').click(function () {
-        $('.popup').hide();
-    })
-
-
-
-    // 헤더 네브
-
-    $('nav ul li').mouseenter(function () {
+    // 네브
+    $('nav>ul>li').mouseenter(function () {
         $('.sub').stop().slideDown();
     })
 
-    $('nav ul li').mouseleave(function () {
+    $('nav>ul>li').mouseleave(function () {
         $('.sub').stop().slideUp();
     })
 
+    $('nav>ul>li').focusin(function () {
+        $('.sub').stop().slideDown();
+        $(this).children('a').addClass('on');
+    })
 
-    //슬라이드
+    $('nav>ul>li').focusout(function () {
+        $('.sub').stop().slideUp();
+        $(this).children('a').removeClass('on');
+    })
+
+    $('.sub>li').focusin(function () {
+        $(this).children('a').addClass('on');
+    })
+    $('.sub>li').focusout(function () {
+        $(this).children('a').removeClass('on');
+    })
+
+
+
+    // 슬라이드
     function slide() {
-
-        $('.slide ul').animate({ left: '-1200px' }, 1000, function () {
-            $('.slide ul').append(
-                $('.slide ul li').first());
-            $('.slide ul').css({ left: '0' });
+        $('.slide>ul').animate({ left: '-1200px' }, 1000, function () {
+            $(this).append($('.slide>ul>li').first())
+            $('.slide>ul').css({ left: '0' })
         })
-
     }
     setInterval(slide, 3000)
 
 
-    //탭
+    // 탭
+    $('.cont>ul>li').click(function () {
+        $('.cont>ul>li').removeClass('on')
+        $(this).addClass('on')
+        $('.tab').hide();
+        $(this).children('.tab').show();
+    })
 
-    $('.tap>ul>li').click(function () {
-        $('.tap>ul>li').removeClass();
-        $(this).addClass('on');
-
-        var i = $(this).index();
-        // console.log(i)
-        $('.tabcon').hide();
-        $('.tabcon').eq(i).show();
+    $('.cont>ul>li').focusin(function () {
+        $('.cont>ul>li').removeClass('on')
+        $(this).addClass('on')
+        $('.tab').hide();
+        $(this).children('.tab').show();
     })
 
 
-
-    //포커스인 // 헤더 네브
-    $('nav>ul>li>a').focusin(function () {
-        $('.sub').slideDown();
-        $(this).addClass('on');
-
+    //  팝업
+    $('.pop_on').click(function () {
+        $('.pop').show();
     })
-
-    $('.sub li a').focusin(function () {
-        $(this).addClass('on');
+    $('.pop_off').click(function () {
+        $('.pop').hide();
     })
-
-    $('.sub li a').focusout(function () {
-        $(this).removeClass('on');
-    })
-
-    $('nav>ul>li>a').focusout(function () {
-        $(this).removeClass('on');
-
-    })
-
-    $('nav>ul>li:last-child .sub li:last-child').focusout(function () {
-        $('.sub').slideUp();
-    })
-
 
 })
